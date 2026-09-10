@@ -1,0 +1,3 @@
+Generated with the built-in image generation tool. Source: source.png. Chrome sizes: icon-16.png, icon-32.png, icon-48.png and icon-128.png.
+
+Prompt: Use case: logo-brand. Create a single square Chrome extension icon for Pasaporte, a country-selecting web proxy. Minimal bold mint green globe symbol centered on a dark navy #101822 rounded square, transparent outside corners. Flat crisp geometric mark, thick strokes, one meridian and equator, readable at 16px. Globe fills 75% of tile. Palette mint #83edc0 and navy only. No text, no letters, no shadows, no mockup, no multiple variations. Save as a PNG image.

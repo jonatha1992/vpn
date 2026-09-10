@@ -1,0 +1,38 @@
+[
+  {
+    "country": "GB",
+    "gateway": "103.88.235.135",
+    "exitIp": "31.59.20.176",
+    "status": 200
+  },
+  {
+    "country": "ES",
+    "gateway": "103.88.235.78",
+    "exitIp": "64.137.96.74",
+    "status": 200
+  },
+  {
+    "country": "US",
+    "gateway": "170.80.110.53",
+    "exitIp": "198.23.243.226",
+    "status": 200
+  },
+  {
+    "country": "PL",
+    "gateway": "177.54.152.227",
+    "exitIp": "84.247.60.125",
+    "status": 200
+  },
+  {
+    "country": "JP",
+    "gateway": "177.54.157.203",
+    "exitIp": "142.111.67.146",
+    "status": 200
+  },
+  {
+    "country": "DE",
+    "gateway": "189.1.168.120",
+    "exitIp": "31.58.9.4",
+    "status": 200
+  }
+]

@@ -1,0 +1,28 @@
+PASAPORTE VPN 1.3.0 - INSTALACION EN CHROME
+
+1. Copia el ZIP a la otra computadora.
+2. Extrae TODO su contenido en una carpeta permanente, por ejemplo:
+   Documentos/Pasaporte VPN
+3. Abre Chrome y escribe chrome://extensions en la barra de direcciones.
+4. Activa Modo de desarrollador, arriba a la derecha.
+5. Pulsa Cargar descomprimida y selecciona la carpeta extraida que contiene
+   manifest.json. No selecciones el archivo ZIP.
+6. Abre el menu de extensiones (pieza de rompecabezas) y fija Pasaporte VPN.
+7. Abre Pasaporte VPN, elige un pais y pulsa Activar proxy.
+8. Comprueba que aparezca tu IP publica y la confirmacion de coincidencia.
+
+Los servidores y el acceso se cargan automaticamente al abrir la extension.
+No hace falta volver a escribir usuario y contrasena.
+Conserva la carpeta extraida: Chrome carga la extension desde ella.
+
+Para dejar de usar el proxy, pulsa Desactivar. Para desinstalar la extension,
+abre chrome://extensions y pulsa Quitar en la tarjeta de Pasaporte VPN.
+
+Esta es una copia PERSONAL: private-config.json contiene las credenciales
+de tus proxies. Quien reciba el ZIP puede usar tu acceso y consumir el cupo
+de tu cuenta. No lo publiques ni lo compartas con terceros.
+
+El cupo se comparte entre las computadoras que usan esta misma cuenta.
+La conexion afecta al trafico web de Chrome, no es una VPN del dispositivo.
+En equipos administrados, la organizacion puede impedir cargar extensiones
+en modo de desarrollador.

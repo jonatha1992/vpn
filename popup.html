@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pasaporte</title><link rel="stylesheet" href="style.css"></head>
+<body>
+  <header><img src="icons/icon-48.png" width="48" height="48" alt=""><div><h1>Pasaporte VPN</h1><p>Elegí desde dónde navegar</p></div></header>
+  <main>
+    <section class="status"><span id="indicator"></span><div><strong id="status">Consultando estado…</strong><p id="detail">La configuración se aplica a Chrome.</p></div></section>
+    <section class="ip-card" aria-live="polite"><p>Tu IPv4 pública</p><strong id="public-ip">Sin comprobar</strong><p id="ip-result">Consultando la conexión…</p><button id="verify" class="secondary" type="button">Verificar IP</button></section>
+    <label for="country">Tu destino</label><select id="country"></select>
+    <p id="availability" class="hint"></p>
+    <div class="actions"><button id="connect" disabled>Activar proxy</button><button id="disconnect" class="secondary" disabled>Desactivar</button></div>
+    <p id="message" role="status" aria-live="polite"></p>
+    <details id="auth-settings"><summary>Actualizar acceso de Webshare</summary>
+      <form id="auth-form">
+        <label for="proxy-user">Usuario del proxy</label><input id="proxy-user" autocomplete="off" required spellcheck="false">
+        <label for="proxy-password">Contraseña del proxy</label><input id="proxy-password" type="password" autocomplete="new-password" required>
+        <p class="hint">Copiá los datos de Free → Proxy List. Son los del proxy, no los de inicio de sesión. Se guardan solo en este navegador.</p>
+        <button type="submit" class="secondary">Guardar acceso</button>
+      </form>
+    </details>
+    <details id="settings"><summary>Configurar servidor de este país</summary>
+      <form id="server-form">
+        <label for="host">Dirección del servidor</label><input id="host" placeholder="proxy.ejemplo.com" required autocomplete="off" maxlength="253">
+        <div class="row"><div><label for="port">Puerto</label><input id="port" type="number" min="1" max="65535" required placeholder="1080"></div><div><label for="scheme">Protocolo</label><select id="scheme"><option value="https">HTTPS</option><option value="socks5">SOCKS5</option><option value="http">HTTP</option></select></div></div>
+        <p class="hint">Tus servidores precargados ya incluyen autenticación. Para otros servidores, usá autorización por IP.</p>
+        <button type="submit" class="secondary">Guardar servidor</button>
+      </form>
+    </details>
+    <footer>Necesitás un proxy real en cada país. Afecta al tráfico web de Chrome; no es una VPN del dispositivo ni cambia el GPS.</footer>
+    <footer>Created by tecnofusion.it</footer>
+  </main><script src="ip-check.js"></script><script src="popup.js"></script>
+</body>
+</html>
