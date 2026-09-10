@@ -153,6 +153,7 @@ async function init() {
   let saved = await chrome.storage.local.get(['servers','selectedCountry','presetImported','presetRevision','proxyCredentials']);
   {
     const response = await fetch(chrome.runtime.getURL('private-config.json'));
+    if (!response.ok) throw new Error('No se pudo cargar private-config.json. Instalá nuevamente el paquete personal completo.');
     if (response.ok) {
       const preset = await response.json();
       if (!saved.presetImported || (saved.presetRevision || 0) < (preset.revision || 1)) {

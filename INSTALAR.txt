@@ -1,4 +1,4 @@
-PASAPORTE VPN 1.3.0 - INSTALACION EN CHROME
+PASAPORTE VPN 1.3.2 - INSTALACION EN CHROME
 
 1. Copia el ZIP a la otra computadora.
 2. Extrae TODO su contenido en una carpeta permanente, por ejemplo:
