@@ -20,6 +20,8 @@ Esta copia personal incluye un servidor por país: Alemania, España, Estados Un
 4. Abrí Pasaporte: importa los servidores y credenciales automáticamente una sola vez.
 5. Elegí un país disponible y pulsá Activar proxy. Desactivar libera la configuración y restaura la que corresponda al sistema u otras extensiones.
 
+El ícono de Pasaporte muestra `ON` en verde cuando el proxy está activo y `OFF` en gris cuando está desactivado, para que el estado sea visible sin abrir el popup.
+
 ## Datos personales y permisos
 
 `private-config.json` contiene credenciales personales y está excluido de Git. No compartas esta carpeta. Se importan a chrome.storage.local sin sincronización. Para modificar credenciales ya importadas, actualizá ese almacenamiento o reinstalá con el archivo actualizado.
