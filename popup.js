@@ -132,15 +132,34 @@ $('auth-form').addEventListener('submit', event => {
   const password = $('proxy-password').value;
   run(async () => {
     if (!username || !password) throw new Error('Completá el usuario y la contraseña del proxy.');
-    const response = await fetch(chrome.runtime.getURL('private-config.json'));
-    if (!response.ok) throw new Error('No se pudo leer la lista de servidores Webshare.');
-    const preset = await response.json();
+    let preset = null;
+    try {
+      const response = await fetch(chrome.runtime.getURL('private-config.json'));
+      if (response.ok) {
+        preset = await response.json();
+      }
+    } catch {
+      preset = null;
+    }
     const {proxyCredentials = {}} = await chrome.storage.local.get('proxyCredentials');
-    for (const server of Object.values(preset.servers)) {
-      const endpoint = `${server.host}:${server.port}`;
-      const presetUser = preset.proxyCredentials?.[endpoint]?.username || preset.credentials.username;
-      const suffix = presetUser.startsWith(preset.credentials.username) ? presetUser.slice(preset.credentials.username.length) : '';
-      proxyCredentials[endpoint] = {username:username+suffix,password};
+    if (preset?.servers && Object.keys(preset.servers).length > 0) {
+      for (const server of Object.values(preset.servers)) {
+        const endpoint = `${server.host}:${server.port}`;
+        const presetUser = preset.proxyCredentials?.[endpoint]?.username || preset.credentials?.username || username;
+        const suffix = preset.credentials?.username && presetUser.startsWith(preset.credentials.username)
+          ? presetUser.slice(preset.credentials.username.length)
+          : '';
+        proxyCredentials[endpoint] = {username: username + suffix, password};
+      }
+    } else {
+      const targetServers = Object.values(servers);
+      if (targetServers.length === 0) {
+        throw new Error('No hay servidores configurados para asociar las credenciales.');
+      }
+      for (const server of targetServers) {
+        const endpoint = `${server.host}:${server.port}`;
+        proxyCredentials[endpoint] = {username, password};
+      }
     }
     await chrome.storage.local.set({proxyCredentials});
     await chrome.storage.local.remove('lastProxyError');
@@ -151,25 +170,41 @@ $('auth-form').addEventListener('submit', event => {
 chrome.proxy.settings.onChange.addListener(() => { if (!busy) refresh().catch(error => { $('message').textContent = error.message; }); });
 async function init() {
   let saved = await chrome.storage.local.get(['servers','selectedCountry','presetImported','presetRevision','proxyCredentials']);
-  {
+  try {
     const response = await fetch(chrome.runtime.getURL('private-config.json'));
-    if (!response.ok) throw new Error('No se pudo cargar private-config.json. Instalá nuevamente el paquete personal completo.');
     if (response.ok) {
       const preset = await response.json();
       if (!saved.presetImported || (saved.presetRevision || 0) < (preset.revision || 1)) {
         const proxyCredentials = {...saved.proxyCredentials};
-        for (const server of Object.values(preset.servers)) proxyCredentials[`${server.host}:${server.port}`] = preset.credentials;
-        Object.assign(proxyCredentials,preset.proxyCredentials || {});
-        await chrome.storage.local.set({servers:{...saved.servers,...preset.servers},proxyCredentials,presetImported:true,presetRevision:preset.revision || 1});
+        for (const server of Object.values(preset.servers || {})) {
+          if (preset.credentials) proxyCredentials[`${server.host}:${server.port}`] = preset.credentials;
+        }
+        Object.assign(proxyCredentials, preset.proxyCredentials || {});
+        await chrome.storage.local.set({
+          servers: {...saved.servers, ...preset.servers},
+          proxyCredentials,
+          presetImported: true,
+          presetRevision: preset.revision || 1
+        });
         await chrome.storage.local.remove('lastProxyError');
         saved = await chrome.storage.local.get(['servers','selectedCountry']);
       }
     }
+  } catch {
+    // Si private-config.json no existe o falla, se continúa normalmente con la configuración persistida
   }
   servers = saved.servers || {};
   const available = countries.filter(([code]) => servers[code]?.host && servers[code]?.port);
-  for (const [code,name] of available) $('country').add(new Option(name,code));
-  $('country').value = available.some(([code]) => code === saved.selectedCountry) ? saved.selectedCountry : (available[0]?.[0] || '');
+  const countrySelect = $('country');
+  countrySelect.innerHTML = '';
+  if (available.length > 0) {
+    for (const [code,name] of available) countrySelect.add(new Option(name,code));
+    countrySelect.value = available.some(([code]) => code === saved.selectedCountry) ? saved.selectedCountry : (available[0]?.[0] || '');
+  } else {
+    for (const [code,name] of countries) countrySelect.add(new Option(name,code));
+    countrySelect.value = countries[0][0];
+    $('message').textContent = 'No hay servidores configurados. Ingresá los datos del proxy arriba para guardarlo.';
+  }
   await refresh();
 }
 init().catch(error => { $('status').textContent = 'No se pudo leer la configuración'; $('message').textContent = error.message; });
