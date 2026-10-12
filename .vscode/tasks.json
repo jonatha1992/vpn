@@ -1,0 +1,7 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "npm: test", "type": "shell", "command": "node --test tests/auth.test.cjs tests/ip-check.test.cjs", "group": "test", "problemMatcher": [] },
+    { "label": "Extensión: abrir popup", "type": "shell", "command": "start chrome \"${workspaceFolder}/popup.html\"", "problemMatcher": [] }
+  ]
+}
