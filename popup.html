@@ -13,7 +13,7 @@
     <details id="auth-settings"><summary>Actualizar acceso de Webshare</summary>
       <form id="auth-form">
         <label for="proxy-user">Usuario del proxy</label><input id="proxy-user" autocomplete="off" required spellcheck="false">
-        <label for="proxy-password">Contraseña del proxy</label><input id="proxy-password" type="password" autocomplete="new-password" required>
+        <label for="proxy-password">Contraseña del proxy</label><div class="password-field"><input id="proxy-password" type="password" autocomplete="new-password" required><button class="password-toggle" type="button" aria-label="Mostrar contraseña" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
         <p class="hint">Copiá los datos de Free → Proxy List. Son los del proxy, no los de inicio de sesión. Se guardan solo en este navegador.</p>
         <button type="submit" class="secondary">Guardar acceso</button>
       </form>
